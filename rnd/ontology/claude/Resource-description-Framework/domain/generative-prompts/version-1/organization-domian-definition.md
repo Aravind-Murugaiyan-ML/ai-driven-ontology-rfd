@@ -1,0 +1,3 @@
+- Developing an ontology for organizational strategy, vision, and planning
+- Capturing entities like departments, goals, KPIs, budgets, and their relationships
+- Multiple levels: organizational strategy → department plans → implementation

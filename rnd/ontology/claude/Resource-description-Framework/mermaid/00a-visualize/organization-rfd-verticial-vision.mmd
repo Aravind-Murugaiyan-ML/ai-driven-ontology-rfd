@@ -1,0 +1,36 @@
+classDiagram
+    class Organization
+    class Strategy
+    class Department
+    class StrategicGoal
+    class DepartmentPlan
+    class DepartmentGoal
+    class KPI
+    class Budget
+    class BudgetAllocation
+    class Initiative
+    class Milestone
+    class Stakeholder
+    
+    Organization "1" *-- "*" Strategy : defines
+    Organization "1" *-- "*" Department : contains
+    
+    Strategy "1" *-- "*" StrategicGoal : includes
+    Strategy "*" -- "*" Stakeholder : involves
+    
+    Department "1" -- "1" Budget : manages
+    Department "1" *-- "*" DepartmentPlan : creates
+    
+    DepartmentPlan "*" -- "1" Strategy : guided by
+    DepartmentPlan "1" *-- "*" DepartmentGoal : contains
+    DepartmentPlan "1" *-- "*" Initiative : implements
+    
+    StrategicGoal "1" -- "*" DepartmentGoal : cascades to
+    StrategicGoal "*" -- "*" KPI : measured by
+    
+    Budget "1" *-- "*" BudgetAllocation : distributes
+    BudgetAllocation "*" -- "1" DepartmentPlan : funds
+    
+    Initiative "1" *-- "*" Milestone : broken into
+    
+    DepartmentGoal "*" -- "*" KPI : tracked by

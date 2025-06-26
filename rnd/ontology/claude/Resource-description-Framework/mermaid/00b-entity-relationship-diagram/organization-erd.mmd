@@ -1,0 +1,174 @@
+erDiagram
+    Organization {
+        string org_id PK
+        string name
+        string mission
+        string vision
+        date established
+        string industry
+    }
+    
+    Strategy {
+        string strategy_id PK
+        string org_id FK
+        string name
+        string description
+        date start_date
+        date end_date
+        string status
+        int priority_level
+    }
+    
+    Department {
+        string dept_id PK
+        string org_id FK
+        string name
+        string description
+        string head_name
+        int employee_count
+    }
+    
+    Strategic_Goal {
+        string goal_id PK
+        string strategy_id FK
+        string title
+        string description
+        date target_date
+        string status
+        int priority_level
+    }
+    
+    Department_Plan {
+        string plan_id PK
+        string dept_id FK
+        string strategy_id FK
+        string name
+        string description
+        date start_date
+        date end_date
+        string status
+    }
+    
+    Department_Goal {
+        string dept_goal_id PK
+        string plan_id FK
+        string strategic_goal_id FK
+        string title
+        string description
+        date target_date
+        string status
+    }
+    
+    KPI {
+        string kpi_id PK
+        string name
+        string description
+        string measurement_unit
+        string calculation_method
+        string frequency
+    }
+    
+    Budget {
+        string budget_id PK
+        string dept_id FK
+        decimal total_amount
+        string currency
+        int fiscal_year
+        date created_date
+        string status
+    }
+    
+    Budget_Allocation {
+        string allocation_id PK
+        string budget_id FK
+        string plan_id FK
+        decimal allocated_amount
+        string category
+        string description
+    }
+    
+    Initiative {
+        string initiative_id PK
+        string plan_id FK
+        string name
+        string description
+        date start_date
+        date end_date
+        decimal budget_required
+        string status
+        string owner
+    }
+    
+    Goal_KPI {
+        string goal_kpi_id PK
+        string strategic_goal_id FK
+        string dept_goal_id FK
+        string kpi_id FK
+        decimal target_value
+        decimal current_value
+        string measurement_period
+    }
+    
+    Metric_Data {
+        string metric_id PK
+        string kpi_id FK
+        decimal value
+        date measurement_date
+        string period
+        string data_source
+    }
+    
+    Milestone {
+        string milestone_id PK
+        string initiative_id FK
+        string name
+        string description
+        date target_date
+        date actual_date
+        string status
+    }
+    
+    Stakeholder {
+        string stakeholder_id PK
+        string name
+        string role
+        string contact_info
+        string influence_level
+    }
+    
+    Strategy_Stakeholder {
+        string strategy_id FK
+        string stakeholder_id FK
+        string involvement_type
+        string responsibility
+    }
+    
+    %% Relationships
+    Organization ||--o{ Strategy : "defines"
+    Organization ||--o{ Department : "contains"
+    
+    Strategy ||--o{ Strategic_Goal : "includes"
+    Strategy ||--o{ Department_Plan : "guides"
+    Strategy ||--o{ Strategy_Stakeholder : "involves"
+    
+    Department ||--o{ Department_Plan : "creates"
+    Department ||--|| Budget : "manages"
+    
+    Department_Plan ||--o{ Department_Goal : "contains"
+    Department_Plan ||--o{ Initiative : "implements_through"
+    Department_Plan ||--o{ Budget_Allocation : "funded_by"
+    
+    Strategic_Goal ||--o{ Department_Goal : "cascades_to"
+    Strategic_Goal ||--o{ Goal_KPI : "measured_by"
+    
+    Department_Goal ||--o{ Goal_KPI : "tracked_by"
+    Department_Goal ||--o{ Initiative : "achieved_through"
+    
+    KPI ||--o{ Goal_KPI : "used_in"
+    KPI ||--o{ Metric_Data : "generates"
+    
+    Budget ||--o{ Budget_Allocation : "distributed_as"
+    
+    Initiative ||--o{ Milestone : "broken_into"
+    
+    Stakeholder ||--o{ Strategy_Stakeholder : "participates_in"
