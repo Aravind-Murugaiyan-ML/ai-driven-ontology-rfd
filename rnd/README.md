@@ -33,7 +33,4 @@
 - ttl has to be persisted to graph db - not prioritized
 - from graph db we have to generate the owl format to transfer over wire to different systems - not prioritized
 
-- without ttl; from the prompt directly generate owl format. - we need to analyse
-
-**System Design**
-- instead of feeding prompts to external systems for generating ttl, integrate a prompting system(Agents) for generating ttl, this ttl has to be programatically(using Apache Jene) persisted into a Triple store and provide an interface to execute sparql on the Triple Store to extract values from the ontology specific for organization
+- without ttl; from the prompt directly generate owl format - we need to analyse
