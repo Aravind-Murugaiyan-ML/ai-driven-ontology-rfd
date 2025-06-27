@@ -34,6 +34,15 @@ test-connection:
 	@ssh -T git@github-Aravind-Murugaiyan-ML || true
 	@echo "Connection test completed"
 
+setup-pull-configuration:
+	@echo "Setting up pull configuration..."
+	@git config pull.rebase false
+	@echo "Pull configuration set to merge"
+
+pull:
+	@echo "Pulling latest changes from remote..."
+	@git pull --no-rebase --allow-unrelated-histories
+
 # Individual targets for specific operations
 ssh-only: setup-ssh
 
